@@ -6,7 +6,7 @@ import java.util.List;
  * Created by woolr on 17/03/2016.
  */
 public class InternalNode extends Node{
-
+/*
     private final List<Node> children;
 
     public InternalNode(int data, List<Node> children){
@@ -59,5 +59,5 @@ public class InternalNode extends Node{
         InternalNode n = (InternalNode)o;
         return (getData() == n.getData() && children.equals(n.children));
     }
-
+*/
 }

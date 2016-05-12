@@ -4,7 +4,7 @@ package com.example.woolr.fowitgenie;
  * Created by woolr on 17/03/2016.
  */
 public class Leaf extends Node{
-
+/*
     public Leaf(int data){
         super(data);
     }
@@ -34,5 +34,5 @@ public class Leaf extends Node{
         Leaf l = (Leaf)o;
         return getData() == l.getData();
     }
-
+*/
 }

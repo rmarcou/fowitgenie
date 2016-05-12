@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        JouetsBDD BddJouets = new JouetsBDD(this);
+/*        JouetsBDD BddJouets = new JouetsBDD(this);
 
         BddJouets.erase();
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         for(Jouet j : jouetsFromBdd) {
             BddTest.append(j.getNom());
-        }
+        }*/
     }
 
     @Override
