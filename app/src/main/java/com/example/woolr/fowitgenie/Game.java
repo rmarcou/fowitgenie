@@ -1,6 +1,11 @@
 package com.example.woolr.fowitgenie;
 
-import java.lang.reflect.Array;
+import android.content.Context;
+
+import com.example.woolr.fowitgenie.bdd.JouetsDAO;
+import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
+import com.example.woolr.fowitgenie.bdd.ReponsesDAO;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,13 +14,25 @@ import java.util.Random;
  */
 public class Game {
 
+    //Context de l'activité en cours.
+    private Context context;
+
     private ArrayList<Question> questions;
     private ArrayList<Jouet> jouets;
-    private ArrayList<Matrice> matrice_jeu;
+    private ArrayList<Reponse> matrice_jeu;
     private Question question_courante;
     public ArrayList<Score> scores;
-    public int nbtour;
+    public int nbtour = 1;
 
+    //DAO
+    private JouetsDAO jouetDAO;
+    private QuestionsDAO questioDAO;
+    private ReponsesDAO reponseDAO;
+
+    public Game(Context c) {
+        context = c;
+        init();
+    }
 
     public ArrayList<Question> getQuestions() {
         return questions;
@@ -33,11 +50,11 @@ public class Game {
         this.jouets = jouets;
     }
 
-    public ArrayList<Matrice> getMatrice_jeu() {
+    public ArrayList<Reponse> getMatrice_jeu() {
         return matrice_jeu;
     }
 
-    public void setMatrice_jeu(ArrayList<Matrice> matrice_jeu) {
+    public void setMatrice_jeu(ArrayList<Reponse> matrice_jeu) {
         this.matrice_jeu = matrice_jeu;
     }
 
@@ -53,21 +70,32 @@ public class Game {
     public void init() {
         nbtour = 1;
         //faire le CRUD pour recupperer tout les jouets et toutes les questions
+        this.setJouetDAO(new JouetsDAO(context));
+        this.setJouets(getJouetDAO().read());
+        this.setQuestioDAO(new QuestionsDAO(context));
+        this.setQuestions(getQuestioDAO().read());
+        this.setReponseDAO(new ReponsesDAO(context));
 
         //fin CRUD
-        this.setMatrice_jeu(new ArrayList<Matrice>());
-        Matrice m = new Matrice();
+        this.setMatrice_jeu(new ArrayList<Reponse>());
+        Reponse m = new Reponse();
         int reponse_utilisateur = 0;
         Score s = new Score();
-        for (Question q : this.getQuestions()) {
-            for (Jouet j : this.getJouets()) {
-                m.setQuestion(q);
-                m.setJouet(j);
+        /*for (int q : this.getQuestions()) {
+            for (int j : this.getJouets()) {
+                m.setQuestion_id(q);
+                m.setJeu_id(j);
                 m.setReponse_attendue(0);
                 this.getMatrice_jeu().add(m);
                 s.setId_question(q.getId());
                 scores.add(s);
             }
+        }*/
+
+        for( Reponse r : getReponseDAO().read()) {
+            this.getMatrice_jeu().add(r);
+            s.setId_question(r.getQuestion_id());
+            scores.add(s);
         }
 
         //on met à jour la premiére question.
@@ -78,18 +106,23 @@ public class Game {
     }
 
     //Lance un tour de jeu.
-    public void Jouer() {
-        //dans cette fonction on lancer le tour de jeu;
+    public Question Jouer(int reponse_joueur) {
+        //dans cette fonction on lance le tour de jeu;
         //on augmente le tour si on est pas arrivé à 20 tour
         if (nbtour > 20) {
-            return;
+            //appeller methode de fin de partie.
+            fin_de_partie();
+            return null;
         } else nbtour++;
 
-        //puis on choisis calcul le score des questions pour choisir la prochaine
+        //puis on choisis/calcul le score des questions pour choisir la prochaine
+        traitement_reponse(reponse_joueur);
+        this.setQuestion_courante(calcul_scrore());
+        return this.getQuestion_courante();
 
+    }
 
-        this.setQuestion_courante(new Question());
-
+    private void fin_de_partie() {
 
     }
 
@@ -97,9 +130,9 @@ public class Game {
     public Question calcul_scrore() {
         Score s;
         //on compte le nombre de oui et de non pour chaque question pour chaque objet qui reste.
-        for (Matrice m : this.getMatrice_jeu()) {
-            s = scores.get(m.getQuestion().getId());
-            if(s != null) {
+        for (Reponse m : this.getMatrice_jeu()) {
+            s = scores.get(m.getQuestion_id());
+            if (s != null) {
                 if (m.getReponse_attendue() == 0) {
                     s.setNon(s.getOui() + 1);
                 } else {
@@ -120,8 +153,8 @@ public class Game {
         int tot_score = 0;
         int max_score = 0;
         int id_question_max_score = 0;
-        for (Score sc: scores) {
-            tot_score = (sc.getOui()+1) * (sc.getNon()+1);
+        for (Score sc : scores) {
+            tot_score = (sc.getOui() + 1) * (sc.getNon() + 1);
             sc.setScore(tot_score);
             if (max_score < tot_score) {
                 id_question_max_score = sc.getId_question();
@@ -134,8 +167,8 @@ public class Game {
 
     public void traitement_reponse(int reponse_utilisateur) {
         //on recupere la réponse et on la traite
-        for (Matrice m : getMatrice_jeu()) {
-            int id_question = m.getQuestion().getId();
+        for (Reponse m : getMatrice_jeu()) {
+            int id_question = m.getQuestion_id();
             if (id_question == this.getQuestion_courante().getId()) {
                 if (m.getReponse_attendue() != reponse_utilisateur) {
                     this.getMatrice_jeu().remove(id_question);
@@ -147,4 +180,27 @@ public class Game {
     }
 
 
+    public JouetsDAO getJouetDAO() {
+        return jouetDAO;
+    }
+
+    public void setJouetDAO(JouetsDAO jouetDAO) {
+        this.jouetDAO = jouetDAO;
+    }
+
+    public QuestionsDAO getQuestioDAO() {
+        return questioDAO;
+    }
+
+    public void setQuestioDAO(QuestionsDAO questioDAO) {
+        this.questioDAO = questioDAO;
+    }
+
+    public ReponsesDAO getReponseDAO() {
+        return reponseDAO;
+    }
+
+    public void setReponseDAO(ReponsesDAO reponseDAO) {
+        this.reponseDAO = reponseDAO;
+    }
 }

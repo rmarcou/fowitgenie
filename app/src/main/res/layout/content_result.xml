@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,39 +8,40 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.woolr.fowitgenie.PlayActivity"
-    android:background="@drawable/question_poser">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.woolr.fowitgenie.ResultActivity"
+    tools:showIn="@layout/activity_result"
+    android:background="@drawable/result">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Texte de la question"
-        android:id="@+id/text_question"
-        android:layout_marginBottom="63dp"
+        android:id="@+id/resul_textView"
         android:background="#ffffff"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/button_oui_result"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp" />
 
     <Button
         android:layout_width="300px"
         android:layout_height="200px"
         android:text="Oui"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/button_oui_result"
+        android:layout_alignTop="@+id/button_non_result"
+        android:layout_alignParentStart="true"
         android:background="@drawable/lampe_boutton"
-        android:textStyle="bold"
         android:paddingTop="20px" />
 
     <Button
         android:layout_width="300px"
         android:layout_height="200px"
         android:text="Non"
-        android:id="@+id/button_non"
+        android:id="@+id/button_non_result"
+        android:layout_marginBottom="49dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/lampe_boutton"
-        android:textStyle="bold"
         android:paddingTop="20px" />
-
 </RelativeLayout>

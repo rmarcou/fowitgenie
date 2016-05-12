@@ -2,8 +2,8 @@ package com.example.woolr.fowitgenie;
 
 import android.content.Context;
 
-import com.example.woolr.fowitgenie.bdd.JouetsBDD;
-import com.example.woolr.fowitgenie.bdd.QuestionsBDD;
+import com.example.woolr.fowitgenie.bdd.JouetsDAO;
+import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 
 /**
  * Created by sazm on 31/03/2016.
@@ -39,13 +39,13 @@ public class Reponse {
     }
 
     public Jouet getJouet(Context context){
-        JouetsBDD jbdd = new JouetsBDD(context);
+        JouetsDAO jbdd = new JouetsDAO(context);
 
         return jbdd.read(jeu_id);
     }
 
     public Question getQuestion(Context context){
-        QuestionsBDD qbdd = new QuestionsBDD(context);
+        QuestionsDAO qbdd = new QuestionsDAO(context);
         return qbdd.read(question_id);
     }
 

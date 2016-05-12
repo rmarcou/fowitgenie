@@ -18,8 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayActivity">
-        </activity>
+        <activity android:name=".PlayActivity" />
+        <activity
+            android:name=".ResultActivity"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EndActivity"
+            android:label="@string/title_activity_end"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ErrorActivity"
+            android:label="@string/title_activity_error"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import com.example.woolr.fowitgenie.Question;
 
 import java.util.ArrayList;
 
-public class QuestionsBDD extends BDD {
+public class QuestionsDAO extends BDD {
 
     private static final String TABLE_QUESTIONS = "jouets";
     private static final String COL_ID = "id";
@@ -22,7 +22,7 @@ public class QuestionsBDD extends BDD {
     private static final String COL_TEXTE = "texte";
     private static final int NUM_COL_TEXTE = 1;
 
-    public QuestionsBDD(Context context) {
+    public QuestionsDAO(Context context) {
         super(context);
     }
 
