@@ -9,6 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.example.woolr.fowitgenie.bdd.JouetsBDD;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +24,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        JouetsBDD BddJouets = new JouetsBDD(this);
+
+        BddJouets.erase();
+
+        Jouet jouet = new Jouet("test1");
+        Jouet jouet2 = new Jouet("test2");
+
+        BddJouets.create(jouet);
+        BddJouets.create(jouet2);
+
+        ArrayList<Jouet> jouetsFromBdd = BddJouets.read();
+
+
+        TextView BddTest = (TextView) findViewById(R.id.BddTestContent);
+
+        for(Jouet j : jouetsFromBdd) {
+            BddTest.append(j.getNom());
+        }
     }
 
     @Override
