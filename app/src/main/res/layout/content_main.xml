@@ -40,4 +40,15 @@
         android:layout_marginTop="51dp"
         android:layout_below="@+id/text_accueil"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(rien)"
+        android:id="@+id/BddTestContent"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="88dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/button_play" />
 </RelativeLayout>
