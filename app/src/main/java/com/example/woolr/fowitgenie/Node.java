@@ -4,7 +4,7 @@ package com.example.woolr.fowitgenie;
  * Created by woolr on 17/03/2016.
  */
 public abstract class Node {
-
+/*
     private final int data;
 
     public Node(int data) {
@@ -22,6 +22,6 @@ public abstract class Node {
     public boolean contains (int i){
         return data == i;
     }
-
+*/
 
 }

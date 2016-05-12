@@ -1,13 +1,11 @@
 package com.example.woolr.fowitgenie;
 
 /**
- * Created by woolr on 14/04/2016.
+ * Created by sazm on 31/03/2016.
  */
 public class Question {
-
     private int id;
-    private String text;
-    private int scrore;
+    private String texte;
 
     public int getId() {
         return id;
@@ -17,19 +15,11 @@ public class Question {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getTexte() {
+        return texte;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public int getScrore() {
-        return scrore;
-    }
-
-    public void setScrore(int scrore) {
-        this.scrore = scrore;
+    public void setTexte(String texte) {
+        this.texte = texte;
     }
 }
