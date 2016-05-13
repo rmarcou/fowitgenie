@@ -16,10 +16,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Texte de la question"
         android:id="@+id/text_question"
-        android:layout_marginBottom="63dp"
-        android:background="#ffffff"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:padding="20px"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/dialog_box"
+        android:layout_marginTop="450px"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="300px"

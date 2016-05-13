@@ -19,11 +19,19 @@
         android:text="Bienvenue sur Fowit le génie qui devenira vos jeux d&apos;antan."
         android:id="@+id/text_accueil"
         android:allowUndo="true"
-        android:background="#ffffff" />
+        android:layout_above="@+id/button_play"
+        android:layout_alignParentEnd="true"
+        android:padding="20px"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/dialog_box"
+        android:textSize="45px"
+        android:autoText="false"
+         />
 
     <Button
         android:layout_width="400px"
-        android:layout_height="300px"
+        android:layout_height="200px"
         android:text="@string/string_jouer"
         android:id="@+id/button_play"
         android:width="300px"

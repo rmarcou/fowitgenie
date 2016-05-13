@@ -26,14 +26,16 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="200px"
+        android:layout_width="300px"
         android:layout_height="wrap_content"
         android:text="Je me suis trompé! A quoi pensiez vous?"
         android:id="@+id/textView"
-        android:background="#ffffff"
-        android:layout_marginBottom="153dp"
+        android:padding="20px"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/dialog_box"
+        android:singleLine="false"
         android:layout_above="@+id/button_erreur"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="45dp"
-        android:singleLine="false" />
+        android:layout_marginBottom="106dp" />
 </RelativeLayout>
