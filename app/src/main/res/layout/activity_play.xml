@@ -27,11 +27,12 @@
         android:layout_width="300px"
         android:layout_height="200px"
         android:text="Oui"
-        android:id="@+id/button"
+        android:id="@+id/button_oui"
         android:layout_alignParentBottom="true"
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
-        android:paddingTop="20px" />
+        android:paddingTop="20px"
+        android:onClick="pressYess" />
 
     <Button
         android:layout_width="300px"
@@ -42,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
-        android:paddingTop="20px" />
+        android:paddingTop="20px"
+        android:onClick="pressNo" />
 
 </RelativeLayout>

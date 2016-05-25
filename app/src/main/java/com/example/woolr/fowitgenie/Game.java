@@ -30,6 +30,8 @@ public class Game implements Parcelable {
     public ArrayList<Score> scores;
     public int nbtour = 1;
 
+    private ArrayList<Question> questionsRepondu;
+
     //DAO
     private JouetsDAO jouetDAO;
     private QuestionsDAO questioDAO;
@@ -49,6 +51,7 @@ public class Game implements Parcelable {
         jouets = new ArrayList<Jouet>();
         scores = new ArrayList<Score>();
         matrice_jeu = new ArrayList<Reponse>();
+        questionsRepondu = new ArrayList<Question>();
         init();
     }
 
@@ -93,14 +96,8 @@ public class Game implements Parcelable {
         this.setQuestioDAO(new QuestionsDAO(context));
         this.setQuestions(getQuestioDAO().read());
         this.setReponseDAO(new ReponsesDAO(context));
-        //en attendant
-        /*questions = new ArrayList<Question>();
-        jouets = new ArrayList<Jouet>();
-        scores = new ArrayList<Score>();
-        matrice_jeu = new ArrayList<Reponse>();
-*/
-
         //fin CRUD
+
         this.setMatrice_jeu(new ArrayList<Reponse>());
         Reponse m = new Reponse();
         int reponse_utilisateur = 0;
@@ -123,16 +120,25 @@ public class Game implements Parcelable {
     //Lance un tour de jeu.
     public Question Jouer(int reponse_joueur) {
         //dans cette fonction on lance le tour de jeu;
+
+
+
+        //puis on choisis/calcul le score des questions pour choisir la prochaine
+        int finirpartie = traitement_reponse(reponse_joueur);
+        this.setQuestion_courante(calcul_scrore());
+
+        //Si on a plus qu'un jouet dans la liste on a finit!!
+        if(finirpartie  > 0) {
+            // on finit la partie.
+            return null;
+        }
+
         //on augmente le tour si on est pas arrivé à 20 tour
         if (nbtour > 20) {
-            //appeller methode de fin de partie.
-            fin_de_partie();
             return null;
         } else nbtour++;
 
-        //puis on choisis/calcul le score des questions pour choisir la prochaine
-        traitement_reponse(reponse_joueur);
-        this.setQuestion_courante(calcul_scrore());
+
         return this.getQuestion_courante();
 
     }
@@ -180,17 +186,37 @@ public class Game implements Parcelable {
         return this.getQuestions().get(id_question_max_score);
     }
 
-    public void traitement_reponse(int reponse_utilisateur) {
+    public int traitement_reponse(int reponse_utilisateur) {
         //on recupere la réponse et on la traite
+        ArrayList<Reponse> toto = getMatrice_jeu();
+
         for (Reponse m : getMatrice_jeu()) {
-            int id_question = m.getQuestion_id();
+
+            int id_question = m.getQuestion_id()-1;
+            int id_jouet = m.getJeu_id()-1;
+
             if (id_question == this.getQuestion_courante().getId()) {
+
                 if (m.getReponse_attendue() != reponse_utilisateur) {
-                    this.getMatrice_jeu().remove(id_question);
+                    //a changer
+                    //on sauvegardes les question repondu pour laprentissage
+                    this.questionsRepondu.add(this.questions.get(id_question));
+
+                    //Si on a pas la reponse attendu on vire le objet associé.
                     scores.remove(id_question);
+                    this.jouets.remove(id_jouet);
                     this.questions.remove(id_question);
+
+                } else {
+
                 }
             }
+        }
+
+        if(this.jouets.size() < 2) {
+            return 1;//on finit la partie
+        } else {
+            return 0;//on continue
         }
     }
 
@@ -273,6 +299,11 @@ public class Game implements Parcelable {
     };
 
 
+    public ArrayList<Question> getQuestionsRepondu() {
+        return questionsRepondu;
+    }
 
-
+    public void setQuestionsRepondu(ArrayList<Question> questionsRepondu) {
+        this.questionsRepondu = questionsRepondu;
+    }
 }
