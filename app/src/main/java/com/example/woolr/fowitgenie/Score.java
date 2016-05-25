@@ -6,7 +6,9 @@ package com.example.woolr.fowitgenie;
 public class Score {
 
     private int id_question;
+    //nombre de jouet qui ont oui pour cette question
     private int oui = 0;
+    //nombre de jouet qui ont non pour cette question
     private int non = 0;
     private int score = 0;
 

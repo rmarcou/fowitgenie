@@ -1,29 +1,29 @@
 package com.example.woolr.fowitgenie;
 
+import android.content.Context;
+
+import com.example.woolr.fowitgenie.bdd.JouetsDAO;
+import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
+
 /**
  * Created by woolr on 14/04/2016.
  */
 public class Matrice {
 
-    private Question question;
-    private Jouet jouet;
+    private int jeu_id;
+    private int question_id;
     private int reponse_attendue;
-    //private int score;
 
-    public Question getQuestion() {
-        return question;
+    public int getJeu_id() {
+        return jeu_id;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public int getQuestion_id() {
+        return question_id;
     }
 
-    public Jouet getJouet() {
-        return jouet;
-    }
-
-    public void setJouet(Jouet jouet) {
-        this.jouet = jouet;
+    public void setQuestion_id(int question_id) {
+        this.question_id = question_id;
     }
 
     public int getReponse_attendue() {
@@ -32,5 +32,25 @@ public class Matrice {
 
     public void setReponse_attendue(int reponse_attendue) {
         this.reponse_attendue = reponse_attendue;
+    }
+
+    public void setJeu_id(int jeu_id) {
+
+        this.jeu_id = jeu_id;
+    }
+
+    public Jouet getJouet(Context context){
+        JouetsDAO jbdd = new JouetsDAO(context);
+
+        return jbdd.read(jeu_id);
+    }
+
+    public Question getQuestion(Context context){
+        QuestionsDAO qbdd = new QuestionsDAO(context);
+        return qbdd.read(question_id);
+    }
+
+    public int getReponseAttendue(){
+        return reponse_attendue;
     }
 }

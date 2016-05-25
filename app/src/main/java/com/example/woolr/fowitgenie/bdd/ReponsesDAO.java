@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ReponsesBDD extends BDD {
+public class ReponsesDAO extends BDD {
 
     private Context context;
     private static final String TABLE_REPONSES = "reponses";
@@ -29,8 +29,7 @@ public class ReponsesBDD extends BDD {
     private static final String COL_REPONSE = "reponse_attendue";
     private static final int NUM_COL_REPONSE = 2;
 
-    public ReponsesBDD(Context context) throws IOException, ParseException {
-        super(context);
+    public ReponsesDAO(Context context) throws IOException, ParseException {
     }
     
     // Methode pour ajouter un Jouet dans la BDD

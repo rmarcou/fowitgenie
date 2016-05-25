@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class QuestionsBDD extends BDD {
+public class QuestionsDAO extends BDD {
 
     private static final String TABLE_QUESTIONS = "questions";
     private static final String COL_ID = "id";
@@ -25,8 +25,8 @@ public class QuestionsBDD extends BDD {
     private static final String COL_TEXTE = "texte";
     private static final int NUM_COL_TEXTE = 1;
 
-    public QuestionsBDD(Context context) throws IOException, ParseException {
-        super(context);
+    public QuestionsDAO(Context context) throws IOException, ParseException {
+            super(context);
     }
 
     // Methode pour ajouter une Question dans la BDD

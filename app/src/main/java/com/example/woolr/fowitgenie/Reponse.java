@@ -2,8 +2,8 @@ package com.example.woolr.fowitgenie;
 
 import android.content.Context;
 
-import com.example.woolr.fowitgenie.bdd.JouetsBDD;
-import com.example.woolr.fowitgenie.bdd.QuestionsBDD;
+import com.example.woolr.fowitgenie.bdd.JouetsDAO;
+import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 
 import org.json.simple.parser.ParseException;
 
@@ -43,13 +43,13 @@ public class Reponse {
     }
 
     public Jouet getJouet(Context context) throws IOException, ParseException {
-        JouetsBDD jbdd = new JouetsBDD(context);
-
+        JouetsDAO jbdd = new JouetsDAO(context);
+   
         return jbdd.read(jeu_id);
     }
 
     public Question getQuestion(Context context) throws IOException, ParseException {
-        QuestionsBDD qbdd = new QuestionsBDD(context);
+        QuestionsDAO qbdd = new QuestionsDAO(context);
         return qbdd.read(question_id);
     }
 
