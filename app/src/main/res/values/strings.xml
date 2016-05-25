@@ -9,4 +9,6 @@
     <string name="title_activity_result">ResultActivity</string>
     <string name="title_activity_end">EndActivity</string>
     <string name="title_activity_error">ErrorActivity</string>
+
+    <string name="title_activity_test">testActivity</string>
 </resources>

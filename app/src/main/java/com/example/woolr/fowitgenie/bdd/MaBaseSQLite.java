@@ -92,7 +92,7 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         Reponse[] Reponses = gson.fromJson(JSONString, Reponse[].class);
 
         for(Reponse reponse : Reponses){
-            String requete = "INSERT INTO "+table+" VALUES('"+reponse.getJeu_id()+"','"+reponse.getQuestion_id()+"','"+reponse.getReponseAttendue()+"')";
+            String requete = "INSERT INTO "+table+" VALUES('"+reponse.getJeu_id()+"','"+reponse.getQuestion_id()+"','"+reponse.getReponse_attendue()+"')";
             db.execSQL(requete);
         }
     }
