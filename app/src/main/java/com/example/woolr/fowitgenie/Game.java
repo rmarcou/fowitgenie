@@ -95,6 +95,7 @@ public class Game implements Parcelable {
         this.setJouets(getJouetDAO().read());
         this.setQuestioDAO(new QuestionsDAO(context));
         this.setQuestions(getQuestioDAO().read());
+
         this.setReponseDAO(new ReponsesDAO(context));
         //fin CRUD
 
