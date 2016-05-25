@@ -5,6 +5,10 @@ import android.content.Context;
 import com.example.woolr.fowitgenie.bdd.JouetsBDD;
 import com.example.woolr.fowitgenie.bdd.QuestionsBDD;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
 /**
  * Created by sazm on 31/03/2016.
  */
@@ -38,13 +42,13 @@ public class Reponse {
         this.jeu_id = jeu_id;
     }
 
-    public Jouet getJouet(Context context){
+    public Jouet getJouet(Context context) throws IOException, ParseException {
         JouetsBDD jbdd = new JouetsBDD(context);
 
         return jbdd.read(jeu_id);
     }
 
-    public Question getQuestion(Context context){
+    public Question getQuestion(Context context) throws IOException, ParseException {
         QuestionsBDD qbdd = new QuestionsBDD(context);
         return qbdd.read(question_id);
     }

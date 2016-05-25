@@ -12,17 +12,20 @@ import android.database.Cursor;
 import com.example.woolr.fowitgenie.Jouet;
 import com.example.woolr.fowitgenie.Question;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class QuestionsBDD extends BDD {
 
-    private static final String TABLE_QUESTIONS = "jouets";
+    private static final String TABLE_QUESTIONS = "questions";
     private static final String COL_ID = "id";
     private static final int NUM_COL_ID = 0;
     private static final String COL_TEXTE = "texte";
     private static final int NUM_COL_TEXTE = 1;
 
-    public QuestionsBDD(Context context) {
+    public QuestionsBDD(Context context) throws IOException, ParseException {
         super(context);
     }
 

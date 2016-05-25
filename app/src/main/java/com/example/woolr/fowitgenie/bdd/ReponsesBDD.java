@@ -13,6 +13,9 @@ import com.example.woolr.fowitgenie.Jouet;
 import com.example.woolr.fowitgenie.Question;
 import com.example.woolr.fowitgenie.Reponse;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReponsesBDD extends BDD {
@@ -26,12 +29,12 @@ public class ReponsesBDD extends BDD {
     private static final String COL_REPONSE = "reponse_attendue";
     private static final int NUM_COL_REPONSE = 2;
 
-    public ReponsesBDD(Context context) {
+    public ReponsesBDD(Context context) throws IOException, ParseException {
         super(context);
     }
     
     // Methode pour ajouter un Jouet dans la BDD
-    public long create(Reponse reponse) {
+    public long create(Reponse reponse) throws IOException, ParseException {
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
@@ -43,7 +46,7 @@ public class ReponsesBDD extends BDD {
     }
 
     // Methode pour ajouter une liste de réponses dans la BDD
-    public void create(ArrayList<Reponse> reponses) {
+    public void create(ArrayList<Reponse> reponses) throws IOException, ParseException {
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
@@ -79,7 +82,7 @@ public class ReponsesBDD extends BDD {
     }
 
     // Methode pour mettre à jour une Reponse dans la BDD par son id
-    public int update(int Jouet_id, int Question_id, Reponse reponse) {
+    public int update(int Jouet_id, int Question_id, Reponse reponse) throws IOException, ParseException {
         //La mise à jour dans la BDD fonctionne plus ou moins comme une insertion
         //il faut simplement préciser grâce à l'ID
         ContentValues values = new ContentValues();

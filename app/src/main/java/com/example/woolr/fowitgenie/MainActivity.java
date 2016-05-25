@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.woolr.fowitgenie.bdd.JouetsBDD;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,25 +26,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-/*        JouetsBDD BddJouets = new JouetsBDD(this);
-
-        BddJouets.erase();
-
-        Jouet jouet = new Jouet("test1");
-        Jouet jouet2 = new Jouet("test2");
-
-        BddJouets.create(jouet);
-        BddJouets.create(jouet2);
-
-        ArrayList<Jouet> jouetsFromBdd = BddJouets.read();
-
-
         TextView BddTest = (TextView) findViewById(R.id.BddTestContent);
 
-        for(Jouet j : jouetsFromBdd) {
-            BddTest.append(j.getNom());
-        }*/
+        BddTest.clearComposingText();
+        try {
+
+            JouetsBDD BddJouets = new JouetsBDD(this);
+
+            ArrayList<Jouet> jouets = BddJouets.read();
+            for (Jouet jouet : jouets) {
+                BddTest.append("\n"+jouet.getNom());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
