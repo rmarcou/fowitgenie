@@ -3,6 +3,7 @@ package com.example.woolr.fowitgenie;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class PlayActivity extends Activity {
 
@@ -10,6 +11,11 @@ public class PlayActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        Game lejeu = (Game) getIntent().getParcelableExtra("lejeu");
+        // globally
+        TextView myAwesomeTextView = (TextView)findViewById(R.id.text_question);
+        myAwesomeTextView.setText(lejeu.getQuestion_courante().getTexte());
 
         //ajouter des boutton réponse pour chaque reponse associé à la question qui sera affiché
         //la premiere question sera choisi au hasard mais par le début d'un arbre.

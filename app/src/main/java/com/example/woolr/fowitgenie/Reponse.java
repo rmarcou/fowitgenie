@@ -1,6 +1,8 @@
 package com.example.woolr.fowitgenie;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
@@ -8,10 +10,37 @@ import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 /**
  * Created by sazm on 31/03/2016.
  */
-public class Reponse {
+public class Reponse implements Parcelable {
     private int jeu_id;
     private int question_id;
     private int reponse_attendue;
+
+    public Reponse() {
+
+    }
+    public Reponse(int jid, int qid, int rep) {
+        jeu_id = jid;
+        question_id = qid;
+        reponse_attendue = rep;
+    }
+
+    protected Reponse(Parcel in) {
+        jeu_id = in.readInt();
+        question_id = in.readInt();
+        reponse_attendue = in.readInt();
+    }
+
+    public static final Creator<Reponse> CREATOR = new Creator<Reponse>() {
+        @Override
+        public Reponse createFromParcel(Parcel in) {
+            return new Reponse(in);
+        }
+
+        @Override
+        public Reponse[] newArray(int size) {
+            return new Reponse[size];
+        }
+    };
 
     public int getJeu_id() {
         return jeu_id;
@@ -51,5 +80,17 @@ public class Reponse {
 
     public int getReponseAttendue(){
         return reponse_attendue;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(jeu_id);
+        dest.writeInt(question_id);
+        dest.writeInt(reponse_attendue);
     }
 }

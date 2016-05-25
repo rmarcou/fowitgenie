@@ -19,10 +19,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Texte de la question"
         android:id="@+id/resul_textView"
-        android:background="#ffffff"
+        android:background="@drawable/dialog_box"
         android:layout_above="@+id/button_oui_result"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp" />
+        android:layout_marginBottom="68dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="10px"
+        android:textColor="#ffffff" />
 
     <Button
         android:layout_width="300px"

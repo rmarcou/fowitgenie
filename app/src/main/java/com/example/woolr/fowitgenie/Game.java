@@ -1,18 +1,21 @@
 package com.example.woolr.fowitgenie;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 import com.example.woolr.fowitgenie.bdd.ReponsesDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by woolr on 14/04/2016.
  */
-public class Game {
+public class Game implements Parcelable {
 
     //Context de l'activité en cours.
     private Context context;
@@ -28,6 +31,13 @@ public class Game {
     private JouetsDAO jouetDAO;
     private QuestionsDAO questioDAO;
     private ReponsesDAO reponseDAO;
+
+    public Game() {
+        questions = new ArrayList<Question>();
+        jouets = new ArrayList<Jouet>();
+        scores = new ArrayList<Score>();
+        matrice_jeu = new ArrayList<Reponse>();
+    }
 
     public Game(Context c) {
         context = c;
@@ -70,17 +80,24 @@ public class Game {
     public void init() {
         nbtour = 1;
         //faire le CRUD pour recupperer tout les jouets et toutes les questions
-        this.setJouetDAO(new JouetsDAO(context));
+        /*this.setJouetDAO(new JouetsDAO(context));
         this.setJouets(getJouetDAO().read());
         this.setQuestioDAO(new QuestionsDAO(context));
         this.setQuestions(getQuestioDAO().read());
-        this.setReponseDAO(new ReponsesDAO(context));
+        this.setReponseDAO(new ReponsesDAO(context));*/
+        //en attendant
+        questions = new ArrayList<Question>();
+        jouets = new ArrayList<Jouet>();
+        scores = new ArrayList<Score>();
+        matrice_jeu = new ArrayList<Reponse>();
 
         //fin CRUD
         this.setMatrice_jeu(new ArrayList<Reponse>());
         Reponse m = new Reponse();
         int reponse_utilisateur = 0;
         Score s = new Score();
+
+        //ancienne version
         /*for (int q : this.getQuestions()) {
             for (int j : this.getJouets()) {
                 m.setQuestion_id(q);
@@ -92,16 +109,17 @@ public class Game {
             }
         }*/
 
-        for( Reponse r : getReponseDAO().read()) {
+        //nouvelle version
+        /*for( Reponse r : getReponseDAO().read()) {
             this.getMatrice_jeu().add(r);
             s.setId_question(r.getQuestion_id());
             scores.add(s);
-        }
+        }*/
 
         //on met à jour la premiére question.
-        Random rand = new Random();
+        /*Random rand = new Random();
         int q0 = rand.nextInt(getQuestions().size() + 1);
-        this.setQuestion_courante(getQuestions().get(q0));
+        this.setQuestion_courante(getQuestions().get(q0));*/
 
     }
 
@@ -203,4 +221,61 @@ public class Game {
     public void setReponseDAO(ReponsesDAO reponseDAO) {
         this.reponseDAO = reponseDAO;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(questions);
+        dest.writeTypedList(jouets);
+        dest.writeTypedList(matrice_jeu);
+        dest.writeValue(question_courante);
+        dest.writeTypedList(scores);
+
+        dest.writeInt(nbtour);
+    /*
+        dest.writeTypedObject(jouetDAO);
+        dest.writeTypedObject(questioDAO);
+        dest.writeTypedObject(reponseDAO);*/
+    }
+
+    public Game(Parcel in) {
+        this();
+
+        in.readTypedList(questions, Question.CREATOR);
+        in.readTypedList(jouets, Jouet.CREATOR);
+        in.readTypedList(matrice_jeu, Reponse.CREATOR);
+        question_courante = (Question) in.readValue(Question.class.getClassLoader());
+
+        in.readTypedList(scores, Score.CREATOR);
+
+        this.nbtour = in.readInt();
+
+        /*
+        this.jouetDAO = in.readValue();
+        this.questioDAO = in.readValue();
+        this.reponseDAO = in.readValue();*/
+    }
+
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>()
+    {
+        @Override
+        public Game createFromParcel(Parcel source)
+        {
+            return new Game(source);
+        }
+
+        @Override
+        public Game[] newArray(int size)
+        {
+            return new Game[size];
+        }
+    };
+
+
+
+
 }
