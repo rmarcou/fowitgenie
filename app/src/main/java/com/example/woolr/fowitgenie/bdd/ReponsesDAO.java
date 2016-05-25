@@ -30,6 +30,7 @@ public class ReponsesDAO extends BDD {
     private static final int NUM_COL_REPONSE = 2;
 
     public ReponsesDAO(Context context) throws IOException, ParseException {
+        super(context);
     }
     
     // Methode pour ajouter un Jouet dans la BDD

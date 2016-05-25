@@ -26,7 +26,7 @@ public class QuestionsDAO extends BDD {
     private static final int NUM_COL_TEXTE = 1;
 
     public QuestionsDAO(Context context) throws IOException, ParseException {
-            super(context);
+        super(context);
     }
 
     // Methode pour ajouter une Question dans la BDD

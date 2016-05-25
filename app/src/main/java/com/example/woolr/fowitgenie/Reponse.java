@@ -44,7 +44,7 @@ public class Reponse {
 
     public Jouet getJouet(Context context) throws IOException, ParseException {
         JouetsDAO jbdd = new JouetsDAO(context);
-   
+        
         return jbdd.read(jeu_id);
     }
 

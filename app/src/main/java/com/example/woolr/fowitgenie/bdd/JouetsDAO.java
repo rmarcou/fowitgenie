@@ -26,7 +26,7 @@ public class JouetsDAO extends BDD {
     private static final int NUM_COL_NOM = 1;
 
     public JouetsDAO(Context context) throws IOException, ParseException {
-            super(context);
+        super(context);
     }
 
     // Methode pour ajouter un Jouet dans la BDD
