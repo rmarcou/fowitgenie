@@ -12,6 +12,9 @@ import android.database.Cursor;
 import com.example.woolr.fowitgenie.Jouet;
 import com.example.woolr.fowitgenie.Question;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class JouetsDAO extends BDD {
@@ -22,7 +25,7 @@ public class JouetsDAO extends BDD {
     private static final String COL_NOM = "nom";
     private static final int NUM_COL_NOM = 1;
 
-    public JouetsDAO(Context context) {
+    public JouetsDAO(Context context) throws IOException, ParseException {
         super(context);
     }
 
@@ -93,15 +96,13 @@ public class JouetsDAO extends BDD {
     //Cette méthode permet de convertir un cursor en un Jouet
     private Jouet cursorToJouet(Cursor c) {
         //si aucun élément n'a été retourné dans la requête, on renvoie null
-        if (c.getCount() == 0)
-            return null;
-
         //On créé un Jouet
         Jouet jouet = new Jouet();
-        //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
-        jouet.setId(c.getInt(NUM_COL_ID));
-        jouet.setNom(c.getString(NUM_COL_NOM));
-
+        if (c.getCount() != 0){
+            //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
+            jouet.setId(c.getInt(NUM_COL_ID));
+            jouet.setNom(c.getString(NUM_COL_NOM));
+        }
         //On retourne le livre
         return jouet;
     }

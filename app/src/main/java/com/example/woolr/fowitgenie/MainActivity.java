@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +29,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        lejeu = new Game(this.getApplicationContext());
+        try {
+            lejeu = new Game(this.getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Jouet j = new Jouet("Billes");
         j.setId(1);
         lejeu.getJouets().add(j);
@@ -39,26 +48,8 @@ public class MainActivity extends AppCompatActivity {
         lejeu.getMatrice_jeu().add(r);
 
         lejeu.setQuestion_courante(q);
-
-/*      JouetsBDD BddJouets = new JouetsBDD(this);
-
-        BddJouets.erase();
-
-        Jouet jouet = new Jouet("test1");
-        Jouet jouet2 = new Jouet("test2");
-
-        BddJouets.create(jouet);
-        BddJouets.create(jouet2);
-
-        ArrayList<Jouet> jouetsFromBdd = BddJouets.read();
-
-
-        TextView BddTest = (TextView) findViewById(R.id.BddTestContent);
-
-        for(Jouet j : jouetsFromBdd) {
-            BddTest.append(j.getNom());
-        }*/
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

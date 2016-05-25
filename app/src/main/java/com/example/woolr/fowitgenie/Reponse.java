@@ -7,6 +7,10 @@ import android.os.Parcelable;
 import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
 /**
  * Created by sazm on 31/03/2016.
  */
@@ -67,13 +71,13 @@ public class Reponse implements Parcelable {
         this.jeu_id = jeu_id;
     }
 
-    public Jouet getJouet(Context context){
+    public Jouet getJouet(Context context) throws IOException, ParseException {
         JouetsDAO jbdd = new JouetsDAO(context);
-
+        
         return jbdd.read(jeu_id);
     }
 
-    public Question getQuestion(Context context){
+    public Question getQuestion(Context context) throws IOException, ParseException {
         QuestionsDAO qbdd = new QuestionsDAO(context);
         return qbdd.read(question_id);
     }

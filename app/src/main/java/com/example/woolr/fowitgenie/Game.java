@@ -8,6 +8,9 @@ import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 import com.example.woolr.fowitgenie.bdd.QuestionsDAO;
 import com.example.woolr.fowitgenie.bdd.ReponsesDAO;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +42,8 @@ public class Game implements Parcelable {
         matrice_jeu = new ArrayList<Reponse>();
     }
 
-    public Game(Context c) {
+
+    public Game(Context c) throws IOException, ParseException {
         context = c;
         init();
     }
@@ -77,7 +81,7 @@ public class Game implements Parcelable {
     }
 
     //initialisation de la classe.
-    public void init() {
+    public void init() throws IOException, ParseException {
         nbtour = 1;
         //faire le CRUD pour recupperer tout les jouets et toutes les questions
         /*this.setJouetDAO(new JouetsDAO(context));
