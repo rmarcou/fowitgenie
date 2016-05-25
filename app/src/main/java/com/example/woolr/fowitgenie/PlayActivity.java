@@ -12,10 +12,10 @@ public class PlayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        Game lejeu = (Game) getIntent().getParcelableExtra("lejeu");
+        Game moteurJeu = (Game) getIntent().getParcelableExtra("moteurJeu");
         // globally
         TextView myAwesomeTextView = (TextView)findViewById(R.id.text_question);
-        myAwesomeTextView.setText(lejeu.getQuestion_courante().getTexte());
+        myAwesomeTextView.setText(moteurJeu.getQuestion_courante().getTexte());
 
         //ajouter des boutton réponse pour chaque reponse associé à la question qui sera affiché
         //la premiere question sera choisi au hasard mais par le début d'un arbre.

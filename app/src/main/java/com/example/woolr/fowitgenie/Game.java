@@ -45,6 +45,10 @@ public class Game implements Parcelable {
 
     public Game(Context c) throws IOException, ParseException {
         context = c;
+        questions = new ArrayList<Question>();
+        jouets = new ArrayList<Jouet>();
+        scores = new ArrayList<Score>();
+        matrice_jeu = new ArrayList<Reponse>();
         init();
     }
 
@@ -84,16 +88,17 @@ public class Game implements Parcelable {
     public void init() throws IOException, ParseException {
         nbtour = 1;
         //faire le CRUD pour recupperer tout les jouets et toutes les questions
-        /*this.setJouetDAO(new JouetsDAO(context));
+        this.setJouetDAO(new JouetsDAO(context));
         this.setJouets(getJouetDAO().read());
         this.setQuestioDAO(new QuestionsDAO(context));
         this.setQuestions(getQuestioDAO().read());
-        this.setReponseDAO(new ReponsesDAO(context));*/
+        this.setReponseDAO(new ReponsesDAO(context));
         //en attendant
-        questions = new ArrayList<Question>();
+        /*questions = new ArrayList<Question>();
         jouets = new ArrayList<Jouet>();
         scores = new ArrayList<Score>();
         matrice_jeu = new ArrayList<Reponse>();
+*/
 
         //fin CRUD
         this.setMatrice_jeu(new ArrayList<Reponse>());
@@ -101,29 +106,17 @@ public class Game implements Parcelable {
         int reponse_utilisateur = 0;
         Score s = new Score();
 
-        //ancienne version
-        /*for (int q : this.getQuestions()) {
-            for (int j : this.getJouets()) {
-                m.setQuestion_id(q);
-                m.setJeu_id(j);
-                m.setReponse_attendue(0);
-                this.getMatrice_jeu().add(m);
-                s.setId_question(q.getId());
-                scores.add(s);
-            }
-        }*/
-
         //nouvelle version
-        /*for( Reponse r : getReponseDAO().read()) {
+        for( Reponse r : getReponseDAO().read()) {
             this.getMatrice_jeu().add(r);
             s.setId_question(r.getQuestion_id());
             scores.add(s);
-        }*/
+        }
 
         //on met à jour la premiére question.
-        /*Random rand = new Random();
+        Random rand = new Random();
         int q0 = rand.nextInt(getQuestions().size() + 1);
-        this.setQuestion_courante(getQuestions().get(q0));*/
+        this.setQuestion_courante(getQuestions().get(q0));
 
     }
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Game lejeu;
+    public Game moteurJeu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            lejeu = new Game(this.getApplicationContext());
+            moteurJeu = new Game(this.getApplicationContext());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Jouet j = new Jouet("Billes");
-        j.setId(1);
-        lejeu.getJouets().add(j);
-
-        Question q = new Question("Est ce que c'est rond?");
-        q.setId(1);
-        lejeu.getQuestions().add(q);
-
-        Reponse r = new Reponse(j.getId(), q.getId(), 1);
-        lejeu.getMatrice_jeu().add(r);
-
-        lejeu.setQuestion_courante(q);
     }
 
 
@@ -79,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         //pour passer des parametre a l'acitivté d'aprés.
         //intent.putExtra("key", value); //Optional parameters
 
-        play_intent.putExtra("lejeu", lejeu);
+        play_intent.putExtra("moteurJeu",moteurJeu);
         MainActivity.this.startActivity(play_intent);
 
     }
