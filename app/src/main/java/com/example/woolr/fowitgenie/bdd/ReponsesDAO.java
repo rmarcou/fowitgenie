@@ -40,7 +40,7 @@ public class ReponsesDAO extends BDD {
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
         values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
         values.put(COL_ID_QUESTION, reponse.getQuestion(context).getId());
-        values.put(COL_REPONSE, reponse.getReponseAttendue());
+        values.put(COL_REPONSE, reponse.getReponse_attendue());
         //on insère l'objet dans la BDD via le ContentValues
         return bdd.insert(TABLE_REPONSES, null, values);
     }
@@ -54,7 +54,7 @@ public class ReponsesDAO extends BDD {
         for (Reponse reponse : reponses) {
             values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
             values.put(COL_ID_QUESTION, reponse.getQuestion(context).getId());
-            values.put(COL_REPONSE, reponse.getReponseAttendue());
+            values.put(COL_REPONSE, reponse.getReponse_attendue());
             //on insère l'objet dans la BDD via le ContentValues
             bdd.insert(TABLE_REPONSES, null, values);
         }
@@ -88,7 +88,7 @@ public class ReponsesDAO extends BDD {
         ContentValues values = new ContentValues();
         values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
         values.put(COL_ID_QUESTION, reponse.getQuestion(context).getId());
-        values.put(COL_REPONSE, reponse.getReponseAttendue());
+        values.put(COL_REPONSE, reponse.getReponse_attendue());
         return bdd.update(TABLE_REPONSES, values, COL_ID_JOUET + " = " + Jouet_id + " AND " + COL_ID_QUESTION + " = " + Question_id, null);
     }
 

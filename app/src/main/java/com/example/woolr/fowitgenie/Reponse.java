@@ -82,10 +82,6 @@ public class Reponse implements Parcelable {
         return qbdd.read(question_id);
     }
 
-    public int getReponseAttendue(){
-        return reponse_attendue;
-    }
-
     @Override
     public int describeContents() {
         return 0;

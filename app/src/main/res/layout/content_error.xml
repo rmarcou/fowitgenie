@@ -27,15 +27,34 @@
 
     <TextView
         android:layout_width="300px"
-        android:layout_height="wrap_content"
-        android:text="Je me suis trompé! A quoi pensiez vous?"
+        android:layout_height="200px"
+        android:text="Je ne connais pas ce jouet. A quoi pensiez vous?"
         android:id="@+id/textView"
         android:padding="20px"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:background="@drawable/dialog_box"
         android:singleLine="false"
-        android:layout_above="@+id/button_erreur"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="63dp"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/suggestion_jouet"
+        android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="106dp" />
+        android:layout_alignStart="@+id/textView"
+        android:singleLine="true"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/suggestionbutton1"
+        android:background="@drawable/suggestion_boutton"
+        android:layout_below="@+id/suggestion_jouet"
+        android:layout_toEndOf="@+id/button_erreur" />
+
 </RelativeLayout>
