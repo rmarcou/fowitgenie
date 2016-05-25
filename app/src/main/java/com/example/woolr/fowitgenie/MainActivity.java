@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.woolr.fowitgenie.bdd.JouetsBDD;
+import com.example.woolr.fowitgenie.bdd.JouetsDAO;
 
 import org.json.simple.parser.ParseException;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         BddTest.clearComposingText();
         try {
 
-            JouetsBDD BddJouets = new JouetsBDD(this);
+            JouetsDAO BddJouets = new JouetsDAO(this);
 
             ArrayList<Jouet> jouets = BddJouets.read();
             for (Jouet jouet : jouets) {
