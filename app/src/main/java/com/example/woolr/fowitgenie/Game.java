@@ -105,15 +105,14 @@ public class Game implements Parcelable {
         Score s = new Score();
 
         //nouvelle version
-        for( Reponse r : getReponseDAO().read()) {
+        for (Reponse r : getReponseDAO().read()) {
             this.getMatrice_jeu().add(r);
             s.setId_question(r.getQuestion_id());
-            scores.add(s);
         }
 
         //on met à jour la premiére question.
         Random rand = new Random();
-        int q0 = rand.nextInt(getQuestions().size() + 1);
+        int q0 = rand.nextInt(getQuestions().size());
         this.setQuestion_courante(getQuestions().get(q0));
 
     }
@@ -123,13 +122,13 @@ public class Game implements Parcelable {
         //dans cette fonction on lance le tour de jeu;
 
 
-
         //puis on choisis/calcul le score des questions pour choisir la prochaine
         int finirpartie = traitement_reponse(reponse_joueur);
-        this.setQuestion_courante(calcul_scrore());
+        Question questionSuivante = calcul_scrore();
+        this.setQuestion_courante(questionSuivante);
 
         //Si on a plus qu'un jouet dans la liste on a finit!!
-        if(finirpartie  > 0) {
+        if (finirpartie > 0) {
             // on finit la partie.
             return null;
         }
@@ -150,71 +149,109 @@ public class Game implements Parcelable {
 
     //retourne la question la plus pertinente pour le prochain tour.
     public Question calcul_scrore() {
+        this.scores = new ArrayList<>();
         Score s;
         //on compte le nombre de oui et de non pour chaque question pour chaque objet qui reste.
-        for (Reponse m : this.getMatrice_jeu()) {
-            s = scores.get(m.getQuestion_id());
-            if (s != null) {
-                if (m.getReponse_attendue() == 0) {
-                    s.setNon(s.getOui() + 1);
-                } else {
-                    s.setOui(s.getNon() + 1);
-                }
-            } else {
-                s = new Score();
-                scores.add(s);
-                if (m.getReponse_attendue() == 0) {
-                    s.setNon(s.getOui() + 1);
-                } else {
-                    s.setOui(s.getNon() + 1);
+        for (Question q : this.questions) {
+            s = new Score();
+            for (Reponse m : this.getMatrice_jeu()) {
+
+                if (q.getId() == m.getQuestion_id()) {
+                    if (m.getReponse_attendue() == 0) {
+                        s.setNon(s.getOui() + 1);
+                    } else {
+                        s.setOui(s.getNon() + 1);
+                    }
                 }
             }
+            this.scores.add(s);
         }
 
         //on calcul les score de chaque question.
         int tot_score = 0;
         int max_score = 0;
         int id_question_max_score = 0;
-        for (Score sc : scores) {
+        //les entree sont decalé car les tableaux commencent à 0 en java et pas a 1
+
+        for (Score sc : this.scores) {
             tot_score = (sc.getOui() + 1) * (sc.getNon() + 1);
             sc.setScore(tot_score);
             if (max_score < tot_score) {
                 id_question_max_score = sc.getId_question();
                 max_score = tot_score;
             }
+            tot_score = 0;
+        }
+        int id_question_max_score_minus = 0;
+        if (id_question_max_score > 0) {
+            id_question_max_score_minus = id_question_max_score - 1;
         }
 
-        return this.getQuestions().get(id_question_max_score);
+        if (this.getQuestions().size() == 0) {
+            return null;
+        }
+        return this.getQuestions().get(id_question_max_score_minus);
     }
 
     public int traitement_reponse(int reponse_utilisateur) {
         //on recupere la réponse et on la traite
-        ArrayList<Reponse> toto = getMatrice_jeu();
+
+        int id_question = 0;
+        int id_jouet = 0;
+        boolean delete_j = false;
+        ArrayList<Integer> ids_jouets_a_supprimer = new ArrayList<>();
+        ArrayList<Reponse> reponse_a_supprimer = new ArrayList<>();
 
         for (Reponse m : getMatrice_jeu()) {
+            reponse_a_supprimer.add(m);
 
-            int id_question = m.getQuestion_id()-1;
-            int id_jouet = m.getJeu_id()-1;
+            id_question = (m.getQuestion_id());
+            id_jouet = (m.getJeu_id());
+
 
             if (id_question == this.getQuestion_courante().getId()) {
 
                 if (m.getReponse_attendue() != reponse_utilisateur) {
-                    //a changer
                     //on sauvegardes les question repondu pour laprentissage
-                    this.questionsRepondu.add(this.questions.get(id_question));
-
+                    //pour plus tard, aprentissage, PENSEZ A LE PARCEABLE
+                    //this.questionsRepondu.add(this.questions.get(id_question));
                     //Si on a pas la reponse attendu on vire le objet associé.
-                    scores.remove(id_question);
-                    this.jouets.remove(id_jouet);
-                    this.questions.remove(id_question);
-
-                } else {
-
+                    ids_jouets_a_supprimer.add(id_jouet);
                 }
             }
         }
 
-        if(this.jouets.size() < 2) {
+        //on supprime en dehors de la boucle pour eviter des effets de bord de supression en chaine (le size qui se reduit au fur et a mesure.
+        //on supprime la question dans tout les cas pour ne plus la reposer.
+        int id_question_courante = this.getQuestion_courante().getId();
+        for (Question question_a_supprimer : this.questions) {
+
+            if (question_a_supprimer.getId() == id_question_courante) {
+                this.questions.remove(question_a_supprimer);
+                break;
+            }
+
+        }
+
+        for (Integer id : ids_jouets_a_supprimer) {
+
+            for (Jouet jouet_a_supprimer : this.jouets) {
+                if (jouet_a_supprimer.getId() == id) {
+                    this.jouets.remove(jouet_a_supprimer);
+                    break;
+                }
+            }
+
+            for (Reponse rep : reponse_a_supprimer) {
+                if(rep.getJeu_id() == id) {
+                    getMatrice_jeu().remove(rep);
+                }
+            }
+
+        }
+
+
+        if (this.jouets.size() < 2) {
             return 1;//on finit la partie
         } else {
             return 0;//on continue
@@ -284,17 +321,14 @@ public class Game implements Parcelable {
         this.reponseDAO = in.readValue();*/
     }
 
-    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>()
-    {
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
         @Override
-        public Game createFromParcel(Parcel source)
-        {
+        public Game createFromParcel(Parcel source) {
             return new Game(source);
         }
 
         @Override
-        public Game[] newArray(int size)
-        {
+        public Game[] newArray(int size) {
             return new Game[size];
         }
     };

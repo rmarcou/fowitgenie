@@ -34,9 +34,9 @@ public class PlayActivity extends Activity {
         Question prochaineQuestion = new Question();
         prochaineQuestion = moteurJeu.Jouer(1);
         if(prochaineQuestion == null) {
-            Intent play_intent = new Intent(PlayActivity.this, ResultActivity.class);
-            play_intent.putExtra("moteurJeu",moteurJeu);
-            PlayActivity.this.startActivity(play_intent);
+            Intent result_intent = new Intent(PlayActivity.this, ResultActivity.class);
+            result_intent.putExtra("moteurJeu",moteurJeu);
+            PlayActivity.this.startActivity(result_intent);
         } else {
             TextView questionIHM = (TextView)findViewById(R.id.text_question);
             questionIHM.setText(prochaineQuestion.getTexte() + " ?");
@@ -47,13 +47,12 @@ public class PlayActivity extends Activity {
     public void pressNo(View view)
     {
         //PAS BESOIN DE RECREER UNE ACTIVITE ON FAIT TOUT DANS UNE SEULE!!!!!!
-        //PAS BESOIN DE RECREER UNE ACTIVITE ON FAIT TOUT DANS UNE SEULE!!!!!!
         Question prochaineQuestion = new Question();
         prochaineQuestion = moteurJeu.Jouer(0);
         if(prochaineQuestion == null) {
-            Intent play_intent = new Intent(PlayActivity.this, ResultActivity.class);
-            play_intent.putExtra("moteurJeu",moteurJeu);
-            PlayActivity.this.startActivity(play_intent);
+            Intent result_intent = new Intent(PlayActivity.this, ResultActivity.class);
+            result_intent.putExtra("moteurJeu",moteurJeu);
+            PlayActivity.this.startActivity(result_intent);
         } else {
             TextView questionIHM = (TextView)findViewById(R.id.text_question);
             questionIHM.setText(prochaineQuestion.getTexte() + " ?");

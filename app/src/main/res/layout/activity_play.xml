@@ -20,7 +20,7 @@
         android:textColor="#FFF"
         android:textStyle="bold"
         android:background="@drawable/dialog_box"
-        android:layout_marginTop="450px"
+        android:layout_marginTop="500px"
         android:layout_alignParentEnd="true" />
 
     <Button

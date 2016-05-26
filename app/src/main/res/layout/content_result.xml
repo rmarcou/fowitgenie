@@ -8,7 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.woolr.fowitgenie.ResultActivity"
     tools:showIn="@layout/activity_result"
     android:background="@drawable/result">
@@ -19,23 +18,21 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Texte de la question"
         android:id="@+id/resul_textView"
+        android:padding="20px"
+        android:textColor="#FFF"
+        android:textStyle="bold"
         android:background="@drawable/dialog_box"
-        android:layout_above="@+id/button_oui_result"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:padding="10px"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="600px"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="300px"
         android:layout_height="200px"
         android:text="Oui"
         android:id="@+id/button_oui_result"
-        android:layout_alignTop="@+id/button_non_result"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/lampe_boutton"
+        android:textStyle="bold"
         android:paddingTop="20px" />
 
     <Button
@@ -43,9 +40,9 @@
         android:layout_height="200px"
         android:text="Non"
         android:id="@+id/button_non_result"
-        android:layout_marginBottom="49dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/lampe_boutton"
+        android:textStyle="bold"
         android:paddingTop="20px" />
 </RelativeLayout>
