@@ -2,7 +2,6 @@ package com.example.woolr.fowitgenie;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -47,6 +46,7 @@ public class PlayActivity extends Activity {
     public void pressNo(View view)
     {
         //PAS BESOIN DE RECREER UNE ACTIVITE ON FAIT TOUT DANS UNE SEULE!!!!!!
+        //VERIFIER LE RETOUR!
         Question prochaineQuestion = new Question();
         prochaineQuestion = moteurJeu.Jouer(0);
         if(prochaineQuestion == null) {

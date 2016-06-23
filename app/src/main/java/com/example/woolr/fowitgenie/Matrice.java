@@ -54,7 +54,7 @@ public class Matrice {
         return qbdd.read(question_id);
     }
 
-    public int getReponseAttendue(){
+    public int getreponse_attenduee(){
         return reponse_attendue;
     }
 }

@@ -38,9 +38,14 @@ public class ReponsesDAO extends BDD {
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
-        values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
+        /*values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
         values.put(COL_ID_QUESTION, reponse.getQuestion(context).getId());
+        values.put(COL_REPONSE, reponse.getReponse_attendue());*/
+
+        values.put(COL_ID_JOUET, reponse.getJeu_id());
+        values.put(COL_ID_QUESTION, reponse.getQuestion_id());
         values.put(COL_REPONSE, reponse.getReponse_attendue());
+
         //on insère l'objet dans la BDD via le ContentValues
         return bdd.insert(TABLE_REPONSES, null, values);
     }
@@ -51,9 +56,17 @@ public class ReponsesDAO extends BDD {
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
 
-        for (Reponse reponse : reponses) {
+        /*for (Reponse reponse : reponses) {
             values.put(COL_ID_JOUET, reponse.getJouet(context).getId());
             values.put(COL_ID_QUESTION, reponse.getQuestion(context).getId());
+            values.put(COL_REPONSE, reponse.getReponse_attendue());
+            //on insère l'objet dans la BDD via le ContentValues
+            bdd.insert(TABLE_REPONSES, null, values);
+        }*/
+
+        for (Reponse reponse : reponses) {
+            values.put(COL_ID_JOUET, reponse.getJeu_id());
+            values.put(COL_ID_QUESTION, reponse.getQuestion_id());
             values.put(COL_REPONSE, reponse.getReponse_attendue());
             //on insère l'objet dans la BDD via le ContentValues
             bdd.insert(TABLE_REPONSES, null, values);

@@ -30,7 +30,8 @@ public class Game implements Parcelable {
     public ArrayList<Score> scores;
     public int nbtour = 1;
 
-    private ArrayList<Question> questionsRepondu;
+    //aprentissage
+    private ArrayList<Reponse> questionsRepondu;
 
     //DAO
     private JouetsDAO jouetDAO;
@@ -42,16 +43,12 @@ public class Game implements Parcelable {
         jouets = new ArrayList<Jouet>();
         scores = new ArrayList<Score>();
         matrice_jeu = new ArrayList<Reponse>();
+        questionsRepondu = new ArrayList<Reponse>();
     }
 
 
     public Game(Context c) throws IOException, ParseException {
         context = c;
-        questions = new ArrayList<Question>();
-        jouets = new ArrayList<Jouet>();
-        scores = new ArrayList<Score>();
-        matrice_jeu = new ArrayList<Reponse>();
-        questionsRepondu = new ArrayList<Question>();
         init();
     }
 
@@ -90,6 +87,12 @@ public class Game implements Parcelable {
     //initialisation de la classe.
     public void init() throws IOException, ParseException {
         nbtour = 1;
+        questions = new ArrayList<Question>();
+        jouets = new ArrayList<Jouet>();
+        scores = new ArrayList<Score>();
+        matrice_jeu = new ArrayList<Reponse>();
+        questionsRepondu = new ArrayList<Reponse>();
+
         //faire le CRUD pour recupperer tout les jouets et toutes les questions
         this.setJouetDAO(new JouetsDAO(context));
         this.setJouets(getJouetDAO().read());
@@ -110,6 +113,12 @@ public class Game implements Parcelable {
             s.setId_question(r.getQuestion_id());
         }
 
+        //on prepare la liste des question repondu pour APPRENTISSAGE
+        for(Question q : questions) {
+            Reponse r_repondu = new Reponse(jouets.size()+1,q.getId(),0);
+            questionsRepondu.add(r_repondu);
+        }
+
         //on met à jour la premiére question.
         Random rand = new Random();
         int q0 = rand.nextInt(getQuestions().size());
@@ -121,6 +130,19 @@ public class Game implements Parcelable {
     public Question Jouer(int reponse_joueur) {
         //dans cette fonction on lance le tour de jeu;
 
+        Reponse rNouvelObjet = new Reponse();
+        rNouvelObjet.setQuestion_id(question_courante.getId());
+        rNouvelObjet.setJeu_id(jouets.size()+1);
+
+
+        //on sauvegardes les question repondu pour laprentissage
+        //this.questionsRepondu.add(this.questions.get(id_question));
+        for(Reponse r_repondu : questionsRepondu){
+            if(r_repondu.getQuestion_id() == rNouvelObjet.getQuestion_id()){
+                r_repondu.setReponse_attendue(reponse_joueur);
+            }
+        }
+        //questionsRepondu.add(rNouvelObjet);
 
         //puis on choisis/calcul le score des questions pour choisir la prochaine
         int finirpartie = traitement_reponse(reponse_joueur);
@@ -137,7 +159,6 @@ public class Game implements Parcelable {
         if (nbtour > 20) {
             return null;
         } else nbtour++;
-
 
         return this.getQuestion_courante();
 
@@ -212,9 +233,6 @@ public class Game implements Parcelable {
             if (id_question == this.getQuestion_courante().getId()) {
 
                 if (m.getReponse_attendue() != reponse_utilisateur) {
-                    //on sauvegardes les question repondu pour laprentissage
-                    //pour plus tard, aprentissage, PENSEZ A LE PARCEABLE
-                    //this.questionsRepondu.add(this.questions.get(id_question));
                     //Si on a pas la reponse attendu on vire le objet associé.
                     ids_jouets_a_supprimer.add(id_jouet);
                 }
@@ -249,7 +267,6 @@ public class Game implements Parcelable {
             }
 
         }
-
 
         if (this.jouets.size() < 2) {
             return 1;//on finit la partie
@@ -296,6 +313,8 @@ public class Game implements Parcelable {
         dest.writeValue(question_courante);
         dest.writeTypedList(scores);
 
+        dest.writeTypedList(questionsRepondu);
+
         dest.writeInt(nbtour);
     /*
         dest.writeTypedObject(jouetDAO);
@@ -312,6 +331,8 @@ public class Game implements Parcelable {
         question_courante = (Question) in.readValue(Question.class.getClassLoader());
 
         in.readTypedList(scores, Score.CREATOR);
+
+        in.readTypedList(questionsRepondu, Reponse.CREATOR);
 
         this.nbtour = in.readInt();
 
@@ -333,12 +354,11 @@ public class Game implements Parcelable {
         }
     };
 
-
-    public ArrayList<Question> getQuestionsRepondu() {
+    public ArrayList<Reponse> getQuestionsRepondu() {
         return questionsRepondu;
     }
 
-    public void setQuestionsRepondu(ArrayList<Question> questionsRepondu) {
+    public void setQuestionsRepondu(ArrayList<Reponse> questionsRepondu) {
         this.questionsRepondu = questionsRepondu;
     }
 }

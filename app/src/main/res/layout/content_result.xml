@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Texte de la question"
+        android:text="Resultat"
         android:id="@+id/resul_textView"
         android:padding="20px"
         android:textColor="#FFF"
@@ -33,7 +33,9 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
-        android:paddingTop="20px" />
+        android:paddingTop="20px"
+        android:textSize="35px"
+        android:onClick="pressYess" />
 
     <Button
         android:layout_width="300px"
@@ -44,5 +46,7 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
-        android:paddingTop="20px" />
+        android:paddingTop="20px"
+        android:textSize="35px"
+        android:onClick="pressNo" />
 </RelativeLayout>

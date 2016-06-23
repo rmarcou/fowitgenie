@@ -23,7 +23,7 @@ import java.util.Iterator;
 public class BDD {
 
         protected static int VERSION_BDD = 1;
-        protected static String NOM_BDD = "fowitBDD44.db";
+        protected static String NOM_BDD = "fowitBDD46.db";
 
         protected SQLiteDatabase bdd;
 

@@ -32,7 +32,9 @@
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
         android:paddingTop="20px"
-        android:onClick="pressYess" />
+        android:onClick="pressYess"
+        android:textColor="#000000"
+        android:textSize="35px" />
 
     <Button
         android:layout_width="300px"
@@ -44,6 +46,7 @@
         android:background="@drawable/lampe_boutton"
         android:textStyle="bold"
         android:paddingTop="20px"
-        android:onClick="pressNo" />
+        android:onClick="pressNo"
+        android:textSize="35px" />
 
 </RelativeLayout>

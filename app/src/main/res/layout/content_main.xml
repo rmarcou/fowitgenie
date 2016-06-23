@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenue sur Fowit le génie qui devenira vos jeux d&apos;antan."
+        android:text="Bienvenue sur Fowit le génie qui devinera vos jeux d&apos;antan."
         android:id="@+id/text_accueil"
         android:allowUndo="true"
         android:layout_above="@+id/button_play"
@@ -32,14 +32,15 @@
     <Button
         android:layout_width="400px"
         android:layout_height="200px"
-        android:text="@string/string_jouer"
+        android:text=""
         android:id="@+id/button_play"
         android:width="300px"
         android:height="100px"
         android:onClick="launchplay"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp" />
+        android:layout_marginBottom="74dp"
+        android:background="@drawable/bouton_jouer" />
 
     <ImageView
         android:layout_width="wrap_content"

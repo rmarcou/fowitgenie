@@ -11,4 +11,6 @@
     <string name="title_activity_error">ErrorActivity</string>
 
     <string name="title_activity_test">testActivity</string>
+    <string name="title_activity_learn">LearnActivity</string>
+    <string name="title_activity_question_learn">QuestionLearnActivity</string>
 </resources>

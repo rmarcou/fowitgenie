@@ -49,12 +49,4 @@
         android:singleLine="true"
         android:textColor="#ffffff" />
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/suggestionbutton1"
-        android:background="@drawable/suggestion_boutton"
-        android:layout_below="@+id/suggestion_jouet"
-        android:layout_toEndOf="@+id/button_erreur" />
-
 </RelativeLayout>

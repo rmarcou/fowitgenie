@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.woolr.fowitgenie.LearnActivity"
+    tools:showIn="@layout/activity_learn"
+    android:background="@drawable/fin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rentrer le nom du jouet auquel vous pensiez. (Cliquez sur &quot;Nom du jouet&quot;)"
+        android:id="@+id/textlearn"
+        android:allowUndo="true"
+        android:padding="20px"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/dialog_box"
+        android:textSize="45px"
+        android:autoText="false"
+        android:layout_above="@+id/ok_jouet_button"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Nom du jouet :"
+        android:ems="10"
+        android:id="@+id/input_jouet_name"
+        android:layout_above="@+id/textlearn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="#b6f7f7f7" />
+
+    <Button
+        android:layout_width="300px"
+        android:layout_height="150px"
+        android:id="@+id/ok_jouet_button"
+        android:background="@drawable/ok_button"
+        android:layout_marginBottom="58dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:nestedScrollingEnabled="false"
+        android:onClick="ajoutJouet" />
+
+</RelativeLayout>
